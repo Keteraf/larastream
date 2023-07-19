@@ -35,7 +35,7 @@ const logout = () => {
         <Banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+            <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700  sticky top-0 z-50">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -203,7 +203,8 @@ const logout = () => {
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }" class="sm:hidden">
+                <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
+                    class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
@@ -291,20 +292,21 @@ const logout = () => {
                                 </template>
                             </template>
                         </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
 
-        <!-- Page Heading
+            <!-- Page Heading
             <header v-if="$slots.header" class="bg-white dark:bg-gray-800 shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header> -->
 
-        <!-- Page Content -->
-        <main>
-            <slot />
-        </main>
+            <!-- Page Content -->
+            <main>
+                <slot />
+            </main>
+        </div>
     </div>
-</div></template>
+</template>
