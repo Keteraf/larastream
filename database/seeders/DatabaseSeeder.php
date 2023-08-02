@@ -19,5 +19,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(10)->create();
+
+        \App\Models\Video::factory()->create([
+            'name' => 'Video Test',
+            'description' => 'Video for testing purpose'
+        ]);
+        \App\Models\Video::factory(10)->create();
     }
 }

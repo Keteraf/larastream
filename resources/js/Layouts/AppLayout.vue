@@ -35,9 +35,9 @@ const logout = () => {
         <Banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700  sticky top-0 z-50">
+            <nav class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 sticky top-0 z-50">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="w-full mx-4 px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -51,6 +51,9 @@ const logout = () => {
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+                                <NavLink :href="route('video.index')" :active="route().current('video.index')">
+                                    Video
                                 </NavLink>
                             </div>
                         </div>
@@ -304,7 +307,7 @@ const logout = () => {
             </header> -->
 
             <!-- Page Content -->
-            <main>
+            <main class="container mx-auto p-4 w-full">
                 <slot />
             </main>
         </div>
