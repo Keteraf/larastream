@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    Route::resource('/course', CourseController::class)->only(['index', 'show']);
+    Route::resource('/video', VideoController::class)->only(['index', 'show']);
 });
 
-Route::resource('/video', VideoController::class)->only(['index', 'show']);
+// Route::resource('/video', VideoController::class)->only(['index', 'show']);

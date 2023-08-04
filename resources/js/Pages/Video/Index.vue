@@ -1,7 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Box from '@/Components/Box.vue';
-import { reactive } from 'vue';
 
 defineProps({
     videos: Object,

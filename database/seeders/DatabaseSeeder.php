@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Course;
+use App\Models\User;
+use App\Models\Video;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,17 +17,26 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'name' => 'Raffaele Longo Elia',
             'email' => 'test@larastream.it',
         ]);
 
-        \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
 
-        \App\Models\Video::factory()->create([
+        Course::factory(3)->create();
+
+        Video::factory()->create([
             'name' => 'Video Test',
-            'description' => 'Video for testing purpose'
+            'description' => 'Video for testing purpose',
+            'course_id' => \App\Models\Course::all()->random()->id,
         ]);
-        \App\Models\Video::factory(10)->create();
+
+        Video::factory(10)->create();
+
+        foreach (User::all() as $user) {
+
+            $user->courses()->attach(Course::all()->random(2));
+        }
     }
 }

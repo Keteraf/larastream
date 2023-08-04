@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 100);
-            $table->text('description');
-            $table->string('filename', 255);
-            $table->timestamps();
-            $table->softDeletes();
+
+        Schema::create('course_user', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('course_id')->constrained('courses');
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('course_user');
     }
 };
