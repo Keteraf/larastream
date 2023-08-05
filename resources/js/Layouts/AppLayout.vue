@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
@@ -7,6 +7,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import DarkModeToggle from '@/Components/DarkModeToggle.vue';
 
 defineProps({
     title: String,
@@ -25,10 +26,71 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+const html = ref(null)
+
+onMounted(() => {
+
+    let classes = html.value.classList;
+
+    if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+        classes.add("dark");
+    } else {
+        classes.remove("dark");
+    }
+    var themeToggleDarkIcon = document.getElementById("theme-toggle-dark-icon");
+    var themeToggleLightIcon = document.getElementById("theme-toggle-light-icon");
+
+    // Change the icons inside the button based on previous settings
+    if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+        themeToggleLightIcon.classList.remove("hidden");
+    } else {
+        themeToggleDarkIcon.classList.remove("hidden");
+    }
+
+    var themeToggleBtn = document.getElementById("theme-toggle");
+
+    themeToggleBtn.addEventListener("click", function () {
+        // toggle icons inside button
+        themeToggleDarkIcon.classList.toggle("hidden");
+        themeToggleLightIcon.classList.toggle("hidden");
+
+        // if set via local storage previously
+        if (localStorage.getItem("color-theme")) {
+            if (localStorage.getItem("color-theme") === "light") {
+                classes.add("dark");
+                localStorage.setItem("color-theme", "dark");
+            } else {
+                classes.remove("dark");
+                localStorage.setItem("color-theme", "light");
+            }
+
+            // if NOT set via local storage previously
+        } else {
+            if (classes.contains("dark")) {
+                classes.remove("dark");
+                localStorage.setItem("color-theme", "light");
+            } else {
+                classes.add("dark");
+                localStorage.setItem("color-theme", "dark");
+            }
+        }
+    });
+
+})
+
 </script>
 
 <template>
-    <div>
+    <div class="dark" ref="html">
 
         <Head :title="title" />
 
@@ -134,8 +196,10 @@ const logout = () => {
                                 </Dropdown>
                             </div>
 
+                            <DarkModeToggle class="flex align-middle"></DarkModeToggle>
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
+
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <button v-if="$page.props.jetstream.managesProfilePhotos"
