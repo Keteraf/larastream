@@ -1,6 +1,6 @@
 <script setup>
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 
 defineProps({
     canLogin: Boolean,

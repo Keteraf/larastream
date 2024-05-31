@@ -34,6 +34,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
     Route::resource('/course', CourseController::class)->only(['index', 'show']);
     Route::resource('/video', VideoController::class)->only(['index', 'show']);
 });
